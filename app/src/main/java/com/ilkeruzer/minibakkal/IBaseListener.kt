@@ -17,4 +17,9 @@ interface IBaseListener {
         fun closeClick()
     }
 
+    interface ProductItemListener<T> {
+        fun addBasket(item: T, position: Int)
+        fun removeBasket(item: T, position: Int)
+    }
+
 }

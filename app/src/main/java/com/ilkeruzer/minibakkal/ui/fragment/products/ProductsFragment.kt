@@ -14,7 +14,7 @@ import com.ilkeruzer.minibakkal.ui.fragment.BaseFragment
 import org.koin.android.ext.android.inject
 
 class ProductsFragment : BaseFragment<ProductsViewModel>(),IBaseListener.AppBarProductListener,
-    IBaseListener.Adapter<Product> {
+    IBaseListener.ProductItemListener<Product> {
 
     private val vM by inject<ProductsViewModel>()
     private lateinit var binding: ProductsFragmentBinding
@@ -43,8 +43,7 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(),IBaseListener.AppBarP
             setGridColumn(3)
             adapter = productAdapter
         }
-        productAdapter.setOnActionListener(this)
-
+        productAdapter.setProductListener(this)
         productAdapter.notifyReload(getProductMockList())
     }
 
@@ -52,12 +51,12 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(),IBaseListener.AppBarP
         Log.d("ProductsFragment", "basketClick: ")
     }
 
-    override fun onItemClick(item: Product, position: Int) {
-
+    override fun addBasket(item: Product, position: Int) {
+        Log.d("ProductsFragment", "addBasket: ")
     }
 
-    override fun onLoadMore(itemCount: Int) {
-
+    override fun removeBasket(item: Product, position: Int) {
+        Log.d("ProductsFragment", "removeBasket: ")
     }
 
 
