@@ -5,7 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ilkeruzer.minibakkal.IBaseListener
+import androidx.navigation.fragment.findNavController
+import com.ilkeruzer.minibakkal.IBaseListener.AppBarProductListener
+import com.ilkeruzer.minibakkal.IBaseListener.ProductItemListener
+import com.ilkeruzer.minibakkal.R
 import com.ilkeruzer.minibakkal.data.getProductMockList
 import com.ilkeruzer.minibakkal.databinding.ProductsFragmentBinding
 import com.ilkeruzer.minibakkal.model.Product
@@ -13,8 +16,8 @@ import com.ilkeruzer.minibakkal.ui.adapter.ProductAdapter
 import com.ilkeruzer.minibakkal.ui.fragment.BaseFragment
 import org.koin.android.ext.android.inject
 
-class ProductsFragment : BaseFragment<ProductsViewModel>(),IBaseListener.AppBarProductListener,
-    IBaseListener.ProductItemListener<Product> {
+class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListener,
+    ProductItemListener<Product> {
 
     private val vM by inject<ProductsViewModel>()
     private lateinit var binding: ProductsFragmentBinding
@@ -25,7 +28,7 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(),IBaseListener.AppBarP
     }
 
     override fun getViewBindingRoot(inflater: LayoutInflater, container: ViewGroup?): View? {
-        binding = ProductsFragmentBinding.inflate(inflater,container,false)
+        binding = ProductsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,19 +51,19 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(),IBaseListener.AppBarP
     }
 
     override fun basketClick() {
-        Log.d("ProductsFragment", "basketClick: ")
+       findNavController().navigate(R.id.productToBasket)
     }
 
     override fun addBasket(item: Product, position: Int) {
         Log.d("ProductsFragment", "addBasket: ")
         item.basket += 1
-        productAdapter.updateItem(position,item)
+        productAdapter.updateItem(position, item)
     }
 
     override fun removeBasket(item: Product, position: Int) {
         Log.d("ProductsFragment", "removeBasket: ")
         item.basket -= 1
-        productAdapter.updateItem(position,item)
+        productAdapter.updateItem(position, item)
     }
 
 

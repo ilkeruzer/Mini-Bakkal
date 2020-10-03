@@ -10,10 +10,10 @@ import com.ilkeruzer.minibakkal.databinding.ItemProductLayoutBinding
 import com.ilkeruzer.minibakkal.model.Product
 import com.ilkeruzer.minibakkal.util.ImageLoader
 
-class ProductAdapter (
+class ProductAdapter(
     list: ArrayList<Product?>,
     isMultipleType: Boolean
-) : BaseRecyclerAdapter<Product>(list,isMultipleType) {
+) : BaseRecyclerAdapter<Product>(list, isMultipleType) {
 
     private lateinit var binding: ItemProductLayoutBinding
     private var productItemListener: IBaseListener.ProductItemListener<Product>? = null
@@ -29,11 +29,11 @@ class ProductAdapter (
     }
 
     override fun onCreateBaseViewHolder(v: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        binding = ItemProductLayoutBinding.inflate(LayoutInflater.from(v!!.context),v,false)
+        binding = ItemProductLayoutBinding.inflate(LayoutInflater.from(v!!.context), v, false)
         return ProductHolder(binding)
     }
 
-    class ProductHolder (binding: ItemProductLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ProductHolder(binding: ItemProductLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
         private var imageView = binding.imageView
         private var addBtn = binding.addCardView
@@ -45,9 +45,9 @@ class ProductAdapter (
             product: Product,
             listener: IBaseListener.ProductItemListener<Product>
         ) {
-            ImageLoader.glideImage(imageView,product.imageUrl)
-            addBtn.setOnClickListener { listener.addBasket(product,adapterPosition) }
-            removeBtn.setOnClickListener { listener.removeBasket(product,adapterPosition) }
+            ImageLoader.glideImage(imageView, product.imageUrl)
+            addBtn.setOnClickListener { listener.addBasket(product, adapterPosition) }
+            removeBtn.setOnClickListener { listener.removeBasket(product, adapterPosition) }
 
             if (product.basket <= 0) {
                 removeBtn.visibility = View.GONE

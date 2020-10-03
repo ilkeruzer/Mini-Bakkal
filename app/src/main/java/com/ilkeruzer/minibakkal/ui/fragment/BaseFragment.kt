@@ -100,7 +100,11 @@ abstract class BaseFragment<VM : BaseViewModel>() : Fragment() {
     }
 
     protected abstract fun equalsViewModel(savedInstanceState: Bundle?)
-    protected abstract fun getViewBindingRoot(inflater: LayoutInflater, container: ViewGroup?): View?
+    protected abstract fun getViewBindingRoot(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): View?
+
     protected abstract fun getViewModel(): Class<VM>
     protected abstract fun viewCreated(view: View, savedInstanceState: Bundle?)
 }

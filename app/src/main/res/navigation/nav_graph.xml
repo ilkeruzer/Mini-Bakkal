@@ -8,5 +8,14 @@
         android:id="@+id/productsFragment"
         android:name="com.ilkeruzer.minibakkal.ui.fragment.products.ProductsFragment"
         android:label="products_fragment"
-        tools:layout="@layout/products_fragment" />
+        tools:layout="@layout/products_fragment" >
+        <action
+            android:id="@+id/productToBasket"
+            app:destination="@id/basketFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/basketFragment"
+        android:name="com.ilkeruzer.minibakkal.ui.fragment.basket.BasketFragment"
+        android:label="basket_fragment"
+        tools:layout="@layout/basket_fragment" />
 </navigation>
