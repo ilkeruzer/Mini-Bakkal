@@ -1,7 +1,8 @@
-package com.ilkeruzer.minibakkal
+package com.ilkeruzer.minibakkal.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.ilkeruzer.minibakkal.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
