@@ -52,7 +52,7 @@ abstract class BaseFragment<VM : BaseViewModel>() : Fragment() {
         if (requireActivity().isFinishing) {
             return
         }
-        if (dialog == null || !(dialog!!.isShowing && activity!!.window.decorView.isShown)) {
+        if (dialog == null || !(dialog!!.isShowing && requireActivity().window.decorView.isShown)) {
             dialog = ProgressDialog(activity)
             dialog!!.show()
             startWheelingProcessDialogScheduler(dialog)

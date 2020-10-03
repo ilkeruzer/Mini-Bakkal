@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Mini Bakkal</string>
     <string name="please_wait">Lütfen Bekleyin</string>
+    <string name="not_found_item">Görüntülenecek Öğe\n Bulunamadı</string>
 </resources>
