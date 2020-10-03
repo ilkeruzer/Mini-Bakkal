@@ -10,5 +10,6 @@ data class Product(
     @SerializedName("price") val price: Double,
     @SerializedName("currency") val currency: String,
     @SerializedName("imageUrl") val imageUrl: String,
-    @SerializedName("stock") val stock: Int
+    @SerializedName("stock") val stock: Int,
+    var basket: Int = 0
 )

@@ -1,6 +1,7 @@
 package com.ilkeruzer.minibakkal.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ilkeruzer.minibakkal.Constant
@@ -37,6 +38,8 @@ class ProductAdapter (
         private var imageView = binding.imageView
         private var addBtn = binding.addCardView
         private var removeBtn = binding.removeCardView
+        private var countCard = binding.countCardView
+        private var basketText = binding.countText
 
         fun bind(
             product: Product,
@@ -45,6 +48,15 @@ class ProductAdapter (
             ImageLoader.glideImage(imageView,product.imageUrl)
             addBtn.setOnClickListener { listener.addBasket(product,adapterPosition) }
             removeBtn.setOnClickListener { listener.removeBasket(product,adapterPosition) }
+
+            if (product.basket <= 0) {
+                removeBtn.visibility = View.GONE
+                countCard.visibility = View.GONE
+            } else {
+                removeBtn.visibility = View.VISIBLE
+                countCard.visibility = View.VISIBLE
+                basketText.text = product.basket.toString()
+            }
         }
 
     }
