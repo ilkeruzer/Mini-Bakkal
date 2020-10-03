@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <attr name="appBarType">
+        <enum name="products" value="1" />
+        <enum name="basket" value="2" />
+    </attr>
+
     <declare-styleable name="AppTabBar">
         <attr name="appBar_title" format="string"/>
+        <attr name="appBarType" />
     </declare-styleable>
 </resources>

@@ -2,4 +2,5 @@
 <resources>
     <dimen name="app_bar_title">16sp</dimen>
     <dimen name="app_bar_item_margin">16dp</dimen>
+    <dimen name="app_bar_button_size">18sp</dimen>
 </resources>

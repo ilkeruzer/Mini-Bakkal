@@ -29,14 +29,39 @@ class AppTabBar @JvmOverloads constructor(
     private fun setAttr(attrs: AttributeSet?) {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.AppTabBar)
         try {
+
             if (ta.hasValue(R.styleable.AppTabBar_appBar_title)) {
                 ta.getString(R.styleable.AppTabBar_appBar_title).also {
                     setTitle(it)
                 }
             }
+
+            if (ta.hasValue(R.styleable.AppTabBar_appBarType)) {
+                ta.getInt(R.styleable.AppTabBar_appBarType,1).also {
+                    setStyle(it)
+                }
+            }
         } finally {
             ta.recycle()
         }
+    }
+
+    private fun setStyle(i: Int) {
+        when (i) {
+            1 -> { productStyle() }
+            2 -> { basketStyle() }
+            else -> {}
+        }
+    }
+
+    private fun basketStyle() {
+        binding.shoppingIcon.visibility = GONE
+    }
+
+    private fun productStyle() {
+        binding.closeBtn.visibility = GONE
+        binding.deleteBtn.visibility = GONE
+        binding.shoppingIcon.visibility = VISIBLE
     }
 
     private fun setTitle(it: String?) {
