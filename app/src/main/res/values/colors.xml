@@ -6,4 +6,5 @@
     <color name="tab_bar">#E1E0E0</color>
     <color name="close_button">#03A9F4</color>
     <color name="product_count_bg">#DFF4FD</color>
+    <color name="confirm_bg">#B0EDE7</color>
 </resources>

@@ -1,14 +1,17 @@
 package com.ilkeruzer.minibakkal.ui.fragment.basket
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.ilkeruzer.minibakkal.IBaseListener.AppBarBasketListener
 import com.ilkeruzer.minibakkal.databinding.BasketFragmentBinding
 import com.ilkeruzer.minibakkal.ui.fragment.BaseFragment
 import org.koin.android.ext.android.inject
 
-class BasketFragment : BaseFragment<BasketViewModel>() {
+class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener {
 
     private val vM by inject<BasketViewModel>()
     private lateinit var binding: BasketFragmentBinding
@@ -27,7 +30,15 @@ class BasketFragment : BaseFragment<BasketViewModel>() {
     }
 
     override fun viewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.appTabBar.setBasketListener(this)
+    }
 
+    override fun deleteClick() {
+        Log.d("BasketFragment", "deleteClick: ")
+    }
+
+    override fun closeClick() {
+        findNavController().popBackStack()
     }
 
 

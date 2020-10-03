@@ -22,4 +22,8 @@ interface IBaseListener {
         fun removeBasket(item: T, position: Int)
     }
 
+    interface BasketStatusListener {
+        fun confirmClick()
+    }
+
 }
