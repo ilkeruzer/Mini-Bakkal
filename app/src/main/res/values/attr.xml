@@ -9,5 +9,6 @@
     <declare-styleable name="AppTabBar">
         <attr name="appBar_title" format="string"/>
         <attr name="appBarType" />
+        <attr name="appBar_badge_count" format="integer"/>
     </declare-styleable>
 </resources>

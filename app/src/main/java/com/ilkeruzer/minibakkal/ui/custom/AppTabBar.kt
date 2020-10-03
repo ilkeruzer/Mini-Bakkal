@@ -41,6 +41,13 @@ class AppTabBar @JvmOverloads constructor(
                     setStyle(it)
                 }
             }
+
+            if (ta.hasValue(R.styleable.AppTabBar_appBar_badge_count)) {
+                ta.getInt(R.styleable.AppTabBar_appBar_badge_count,0).apply {
+                    setBadgeCount(this)
+                }
+            }
+
         } finally {
             ta.recycle()
         }
@@ -56,6 +63,7 @@ class AppTabBar @JvmOverloads constructor(
 
     private fun basketStyle() {
         binding.shoppingIcon.visibility = GONE
+        binding.badgeCard.visibility = GONE
     }
 
     private fun productStyle() {
@@ -66,5 +74,15 @@ class AppTabBar @JvmOverloads constructor(
 
     private fun setTitle(it: String?) {
         binding.titleText.text = it
+    }
+
+    fun setBadgeCount(count: Int) {
+        if (count == 0) {
+            binding.badgeCard.visibility = GONE
+        } else {
+            binding.badgeCard.visibility = VISIBLE
+            binding.badgeTxt.text = count.toString()
+        }
+
     }
 }

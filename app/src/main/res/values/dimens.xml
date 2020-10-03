@@ -3,4 +3,9 @@
     <dimen name="app_bar_title">16sp</dimen>
     <dimen name="app_bar_item_margin">16dp</dimen>
     <dimen name="app_bar_button_size">18sp</dimen>
+    <dimen name="badge_card_size">16dp</dimen>
+    <dimen name="badge_card_radius">8dp</dimen>
+    <dimen name="badge_margin_top">10dp</dimen>
+    <dimen name="badge_margin_right">9dp</dimen>
+    <dimen name="badge_text_size">11sp</dimen>
 </resources>
