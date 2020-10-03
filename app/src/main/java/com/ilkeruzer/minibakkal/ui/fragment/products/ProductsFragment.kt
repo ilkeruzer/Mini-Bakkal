@@ -1,14 +1,16 @@
 package com.ilkeruzer.minibakkal.ui.fragment.products
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.ilkeruzer.minibakkal.IBaseListener
 import com.ilkeruzer.minibakkal.databinding.ProductsFragmentBinding
 import com.ilkeruzer.minibakkal.ui.fragment.BaseFragment
 import org.koin.android.ext.android.inject
 
-class ProductsFragment : BaseFragment<ProductsViewModel>() {
+class ProductsFragment : BaseFragment<ProductsViewModel>(),IBaseListener.AppBarProductListener {
 
     private val vM by inject<ProductsViewModel>()
     private lateinit var binding: ProductsFragmentBinding
@@ -27,7 +29,11 @@ class ProductsFragment : BaseFragment<ProductsViewModel>() {
     }
 
     override fun viewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.appTabBar.setProductListener(this)
+    }
 
+    override fun basketClick() {
+        Log.d("ProductsFragment", "basketClick: ")
     }
 
 

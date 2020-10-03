@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ilkeruzer.minibakkal.IBaseListener
 import com.ilkeruzer.minibakkal.R
 import com.ilkeruzer.minibakkal.databinding.CustomAppTabBarLayoutBinding
 
@@ -14,10 +15,19 @@ class AppTabBar @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private lateinit var binding: CustomAppTabBarLayoutBinding
+    private var basketListener: IBaseListener.AppBarBasketListener? = null
+    private var productListener: IBaseListener.AppBarProductListener? = null
 
     init {
         initLayout()
         setAttr(attrs)
+        iconClickListeners()
+    }
+
+    private fun iconClickListeners() {
+        binding.deleteBtn.setOnClickListener { basketListener?.deleteClick() }
+        binding.closeBtn.setOnClickListener { basketListener?.closeClick() }
+        binding.shoppingIcon.setOnClickListener { productListener?.basketClick() }
     }
 
     private fun initLayout() {
@@ -84,5 +94,13 @@ class AppTabBar @JvmOverloads constructor(
             binding.badgeTxt.text = count.toString()
         }
 
+    }
+
+    fun setProductListener(productListener: IBaseListener.AppBarProductListener) {
+        this.productListener = productListener
+    }
+
+    fun setBasketListener(basketListener: IBaseListener.AppBarBasketListener) {
+        this.basketListener = basketListener
     }
 }
