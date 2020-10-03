@@ -4,4 +4,8 @@
     <string name="not_found_item">Görüntülenecek Öğe\n Bulunamadı</string>
     <string name="close">Kapat</string>
     <string name="delete">Sil</string>
+    <string name="add">+</string>
+    <string name="simple_price">5.45 ₺</string>
+    <string name="remove">-</string>
+    <string name="five">5</string>
 </resources>
