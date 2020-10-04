@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.ilkeruzer.minibakkal.IBaseListener.AppBarProductListener
 import com.ilkeruzer.minibakkal.IBaseListener.ProductItemListener
@@ -39,19 +40,30 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListene
     override fun viewCreated(view: View, savedInstanceState: Bundle?) {
         binding.appTabBar.setProductListener(this)
         initRecycler()
+        observeProduct()
+    }
+
+    private fun observeProduct() {
+        showLoading()
+        viewModel.getProductLiveData().observe(viewLifecycleOwner, {
+            binding.recList.visibility = View.VISIBLE
+            stopLoading()
+            productAdapter.notifyReload(it)
+
+        })
     }
 
     private fun initRecycler() {
         binding.recList.apply {
+            visibility = View.GONE
             setGridColumn(3)
             adapter = productAdapter
         }
         productAdapter.setProductListener(this)
-        productAdapter.notifyReload(getProductMockList())
     }
 
     override fun basketClick() {
-       findNavController().navigate(R.id.productToBasket)
+        findNavController().navigate(R.id.productToBasket)
     }
 
     override fun addBasket(item: Product, position: Int) {

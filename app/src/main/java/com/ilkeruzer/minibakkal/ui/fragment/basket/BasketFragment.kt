@@ -44,7 +44,7 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
     private fun initRecycler() {
         binding.recList.apply {
             setRecyclerView(true)
-            addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = basketAdapter
         }
 

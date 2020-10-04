@@ -2,13 +2,11 @@ package com.ilkeruzer.minibakkal.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ilkeruzer.minibakkal.Constant
-import com.ilkeruzer.minibakkal.IBaseListener
+import com.ilkeruzer.minibakkal.IBaseListener.ProductItemListener
 import com.ilkeruzer.minibakkal.databinding.ItemBasketLayoutBinding
-import com.ilkeruzer.minibakkal.databinding.ItemProductLayoutBinding
 import com.ilkeruzer.minibakkal.model.Product
 import com.ilkeruzer.minibakkal.util.ImageLoader
 
@@ -18,7 +16,7 @@ class BasketAdapter(
 ) : BaseRecyclerAdapter<Product>(list, isMultipleType) {
 
     private lateinit var binding: ItemBasketLayoutBinding
-    private var productItemListener: IBaseListener.ProductItemListener<Product>? = null
+    private var productItemListener: ProductItemListener<Product>? = null
 
     override fun onBindBaseViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val ob: Product = mListObjects!![position]!!
@@ -48,7 +46,7 @@ class BasketAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(
             product: Product,
-            listener: IBaseListener.ProductItemListener<Product>
+            listener: ProductItemListener<Product>
         ) {
             titleText.text = product.name
             priceText.text = "${product.price} ${product.currency}"
@@ -61,7 +59,7 @@ class BasketAdapter(
 
     }
 
-    fun setProductListener(productItemListener: IBaseListener.ProductItemListener<Product>) {
+    fun setProductListener(productItemListener: ProductItemListener<Product>) {
         this.productItemListener = productItemListener
     }
 
