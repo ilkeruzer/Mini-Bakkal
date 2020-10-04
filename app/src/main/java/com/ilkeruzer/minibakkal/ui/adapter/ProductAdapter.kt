@@ -1,5 +1,6 @@
 package com.ilkeruzer.minibakkal.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,12 +41,17 @@ class ProductAdapter(
         private var removeBtn = binding.removeCardView
         private var countCard = binding.countCardView
         private var basketText = binding.countText
+        private var priceText = binding.priceText
+        private var nameText = binding.nameText
 
+        @SuppressLint("SetTextI18n")
         fun bind(
             product: Product,
             listener: IBaseListener.ProductItemListener<Product>
         ) {
             ImageLoader.glideImage(imageView, product.imageUrl)
+            priceText.text = "${product.price} ${product.currency}"
+            nameText.text = product.name
             addBtn.setOnClickListener { listener.addBasket(product, adapterPosition) }
             removeBtn.setOnClickListener { listener.removeBasket(product, adapterPosition) }
 
