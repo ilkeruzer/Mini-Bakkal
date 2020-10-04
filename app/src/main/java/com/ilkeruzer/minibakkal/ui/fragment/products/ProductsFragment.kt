@@ -68,8 +68,11 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListene
 
     override fun addBasket(item: Product, position: Int) {
         Log.d("ProductsFragment", "addBasket: ")
-        item.basket += 1
-        productAdapter.updateItem(position, item)
+        if (item.basket != item.stock) {
+            item.basket += 1
+            productAdapter.updateItem(position, item)
+        }
+
     }
 
     override fun removeBasket(item: Product, position: Int) {
