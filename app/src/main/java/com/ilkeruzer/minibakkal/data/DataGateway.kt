@@ -3,6 +3,7 @@ package com.ilkeruzer.minibakkal.data
 import android.annotation.SuppressLint
 import android.util.Log
 import com.ilkeruzer.minibakkal.data.local.IResult
+import com.ilkeruzer.minibakkal.data.local.IResultOb
 import com.ilkeruzer.minibakkal.data.service.IResource
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -15,7 +16,7 @@ import retrofit2.Response
 import java.io.IOException
 import java.net.SocketTimeoutException
 
-class ApiServiceGateway<T> {
+class DataGateway<T> {
     private val TAG = "ApiServiceGateway"
 
     private val SUCCESS = 200
@@ -23,12 +24,13 @@ class ApiServiceGateway<T> {
 
     private var resourceListener: IResource<T>? = null
     private var resultListener: IResult? = null
+    private var resultObListener : IResultOb<T>? = null
 
     constructor(observable: Observable<Response<T>>) {
         setObservable(observable)
     }
 
-    constructor(observable: Observable<T>,type: String) {
+    constructor(observable: Observable<T>, type: String) {
         if (type == "ROOM") {
             setRoomObservable(observable)
         }
@@ -57,18 +59,18 @@ class ApiServiceGateway<T> {
         observable
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe( object : Observer<T> {
+            .subscribe(object : Observer<T> {
                 override fun onComplete() {}
 
                 override fun onSubscribe(d: Disposable) {}
 
                 override fun onNext(t: T) {
-                    resultListener?.onSuccess()
+                    resultObListener?.onSuccess(t)
                 }
 
                 override fun onError(e: Throwable) {
                     handleError(e)
-                    resultListener?.onError()
+                    resultObListener?.onError()
                 }
             }
             )
@@ -136,5 +138,9 @@ class ApiServiceGateway<T> {
 
     fun localeResponse(listener: IResult) {
         this.resultListener = listener
+    }
+
+    fun localeResponse(listener: IResultOb<T>?) {
+        this.resultObListener = listener
     }
 }
