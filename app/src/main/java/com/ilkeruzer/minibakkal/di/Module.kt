@@ -5,6 +5,7 @@ import com.ilkeruzer.minibakkal.data.local.AppDatabase
 import com.ilkeruzer.minibakkal.data.service.ApiService
 import com.ilkeruzer.minibakkal.data.service.ApiServiceChief
 import com.ilkeruzer.minibakkal.data.service.IApiService
+import com.ilkeruzer.minibakkal.repository.BasketRepository
 import com.ilkeruzer.minibakkal.repository.ProductRepository
 import com.ilkeruzer.minibakkal.ui.adapter.BasketAdapter
 import com.ilkeruzer.minibakkal.ui.adapter.ProductAdapter
@@ -18,6 +19,7 @@ val appModule = module {
     single { BasketAdapter(ArrayList(), false) }
 
     single { ProductRepository(get()) }
+    single { BasketRepository(get()) }
 }
 
 val networkModule = module {
@@ -33,6 +35,6 @@ val localeModule = module {
 
 
 val viewModelModule = module {
-    viewModel { ProductsViewModel(get()) }
+    viewModel { ProductsViewModel(get(),get()) }
     viewModel { BasketViewModel() }
 }

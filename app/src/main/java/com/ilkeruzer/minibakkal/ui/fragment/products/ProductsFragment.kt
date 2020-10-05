@@ -5,12 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.ilkeruzer.minibakkal.IBaseListener.AppBarProductListener
 import com.ilkeruzer.minibakkal.IBaseListener.ProductItemListener
 import com.ilkeruzer.minibakkal.R
-import com.ilkeruzer.minibakkal.data.getProductMockList
 import com.ilkeruzer.minibakkal.databinding.ProductsFragmentBinding
 import com.ilkeruzer.minibakkal.model.Product
 import com.ilkeruzer.minibakkal.ui.adapter.ProductAdapter
@@ -71,8 +69,16 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListene
         if (item.basket != item.stock) {
             item.basket += 1
             productAdapter.updateItem(position, item)
+            saveBasketObserve(item)
         }
 
+    }
+
+    private fun saveBasketObserve(item: Product) {
+        viewModel.saveBasket(item).observe(viewLifecycleOwner, {
+            if (it) Log.d("ProductsFragment", "saveBasketObserve: ")
+            else Log.e("ProductsFragment", "saveBasketObserve: ")
+        })
     }
 
     override fun removeBasket(item: Product, position: Int) {

@@ -6,10 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "basket_table")
 data class BasketEntity(
-    @PrimaryKey(autoGenerate = true) var id: Int?,
-    @ColumnInfo(name = "product_id") var productId: String,
+    @PrimaryKey(autoGenerate = false) var id: String,
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "price") var price : Double,
     @ColumnInfo(name = "imageUrl") var imageUrl: String,
+    @ColumnInfo(name = "stock") var stock: Int,
     @ColumnInfo(name = "basketStock") var basketStock: Int
 )
