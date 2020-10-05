@@ -2,6 +2,7 @@ package com.ilkeruzer.minibakkal
 
 import android.app.Application
 import com.ilkeruzer.minibakkal.di.appModule
+import com.ilkeruzer.minibakkal.di.localeModule
 import com.ilkeruzer.minibakkal.di.networkModule
 import com.ilkeruzer.minibakkal.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -21,6 +22,7 @@ class MainApplication : Application() {
             modules(listOf(
                 appModule,
                 networkModule,
+                localeModule,
                 viewModelModule
             ))
         }

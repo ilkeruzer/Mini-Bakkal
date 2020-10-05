@@ -1,5 +1,7 @@
 package com.ilkeruzer.minibakkal.di
 
+import androidx.room.Room
+import com.ilkeruzer.minibakkal.data.local.AppDatabase
 import com.ilkeruzer.minibakkal.data.service.ApiService
 import com.ilkeruzer.minibakkal.data.service.ApiServiceChief
 import com.ilkeruzer.minibakkal.data.service.IApiService
@@ -21,6 +23,14 @@ val appModule = module {
 val networkModule = module {
     single { ApiService(ApiServiceChief.getRetrofit()!!.create(IApiService::class.java)) }
 }
+
+val localeModule = module {
+
+    single { Room.databaseBuilder(get(), AppDatabase::class.java, "basket_db").build() }
+
+    single { get<AppDatabase>().basketDao() }
+}
+
 
 val viewModelModule = module {
     viewModel { ProductsViewModel(get()) }

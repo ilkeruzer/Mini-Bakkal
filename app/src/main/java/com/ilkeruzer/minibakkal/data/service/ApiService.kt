@@ -1,5 +1,6 @@
 package com.ilkeruzer.minibakkal.data.service
 
+import com.ilkeruzer.minibakkal.data.ApiServiceGateway
 import com.ilkeruzer.minibakkal.model.Product
 
 
