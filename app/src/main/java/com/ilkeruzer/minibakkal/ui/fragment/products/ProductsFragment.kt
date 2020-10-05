@@ -23,6 +23,7 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListene
     private val vM by inject<ProductsViewModel>()
     private lateinit var binding: ProductsFragmentBinding
     private val productAdapter by inject<ProductAdapter>()
+    private var sumBasket = 0
 
     override fun equalsViewModel(savedInstanceState: Bundle?) {
         viewModel = vM
@@ -46,11 +47,8 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListene
 
     private fun observeBasketCount() {
         viewModel.getBasketCount().observe(viewLifecycleOwner, {
-            if (it == null || it == 0) {
-                binding.appTabBar.setBadgeCount(0)
-            } else {
-                binding.appTabBar.setBadgeCount(it)
-            }
+            sumBasket = it
+            binding.appTabBar.setBadgeCount(it)
             Log.d("ProductsFragment", "observeBasket: $it")
 
         })
@@ -123,8 +121,9 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListene
 
     private fun deleteBasketObserve(item: Product) {
         viewModel.deleteBasketItem(item).observe(viewLifecycleOwner, Observer {
-            if (it) Log.d("ProductsFragment", "deleteBasketObserve: ")
-            else Log.e("ProductsFragment", "deleteBasketObserve: ")
+            sumBasket -= 1
+            binding.appTabBar.badgeGone(sumBasket)
+
         })
     }
 

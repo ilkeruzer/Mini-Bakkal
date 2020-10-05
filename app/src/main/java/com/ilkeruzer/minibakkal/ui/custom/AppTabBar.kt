@@ -103,4 +103,10 @@ class AppTabBar @JvmOverloads constructor(
     fun setBasketListener(basketListener: IBaseListener.AppBarBasketListener) {
         this.basketListener = basketListener
     }
+
+    fun badgeGone(i: Int) {
+        if (i == 0) {
+            binding.badgeCard.visibility = GONE
+        }
+    }
 }
