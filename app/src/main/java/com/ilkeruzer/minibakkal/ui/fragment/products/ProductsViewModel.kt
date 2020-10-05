@@ -1,6 +1,9 @@
 package com.ilkeruzer.minibakkal.ui.fragment.products
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.ilkeruzer.minibakkal.model.Product
 import com.ilkeruzer.minibakkal.repository.BasketRepository
 import com.ilkeruzer.minibakkal.repository.ProductRepository
@@ -30,5 +33,9 @@ class ProductsViewModel(
 
     fun deleteBasketItem(product: Product): LiveData<Boolean> {
         return basketRepository.deleteBasketItem(AppUtil.productToEntity(product))
+    }
+
+    fun getAllProduct() : LiveData<ArrayList<Product>> {
+        return basketRepository.getAllBasket()
     }
 }

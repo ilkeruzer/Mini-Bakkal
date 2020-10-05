@@ -8,6 +8,8 @@ import com.ilkeruzer.minibakkal.data.local.IResult
 import com.ilkeruzer.minibakkal.data.local.IResultOb
 import com.ilkeruzer.minibakkal.data.local.dao.BasketDao
 import com.ilkeruzer.minibakkal.data.local.entities.BasketEntity
+import com.ilkeruzer.minibakkal.model.Product
+import com.ilkeruzer.minibakkal.util.AppUtil
 
 class BasketRepository(
     private val basketDao: BasketDao
@@ -87,6 +89,28 @@ class BasketRepository(
 
         })
 
+        return liveData
+    }
+
+    fun getAllBasket() : LiveData<ArrayList<Product>> {
+        val liveData = MutableLiveData<ArrayList<Product>>()
+        DataGateway(
+            basketDao.getAllBasket(),"ROOM"
+        ).localeResponse(object : IResultOb<MutableList<BasketEntity>> {
+            override fun onSuccess(t: MutableList<BasketEntity>) {
+                Log.d("BasketRepository", "getAllBasket onSuccess: ")
+                val list = ArrayList<Product>()
+                for (entity in t) {
+                    list.add(AppUtil.entityToProduct(entity))
+                }
+                liveData.postValue(list)
+            }
+
+            override fun onError() {
+                Log.d("BasketRepository", "getAllBasket onError: ")
+            }
+
+        })
         return liveData
     }
 

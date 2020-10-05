@@ -20,5 +20,9 @@ interface BasketDao {
     @Delete
     fun delete(basketEntity: BasketEntity) : Completable
 
+    @Query("SELECT * FROM basket_table ORDER BY id")
+    fun getAllBasket() : Observable<MutableList<BasketEntity>>
+
+
 
 }

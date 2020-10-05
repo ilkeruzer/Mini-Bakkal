@@ -63,6 +63,10 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListene
             productAdapter.notifyReload(it)
 
         })
+
+        viewModel.getAllProduct().observe(viewLifecycleOwner, {
+            Log.d("ProductsFragment", "observeProduct: $it")
+        })
     }
 
     private fun initRecycler() {
