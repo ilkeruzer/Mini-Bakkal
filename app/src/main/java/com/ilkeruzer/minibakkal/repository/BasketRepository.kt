@@ -92,18 +92,17 @@ class BasketRepository(
         return liveData
     }
 
-    fun getAllBasket() : LiveData<ArrayList<Product>> {
-        val liveData = MutableLiveData<ArrayList<Product>>()
+    fun getAllBasket() : ArrayList<Product> {
+        val list = ArrayList<Product>()
         DataGateway(
             basketDao.getAllBasket(),"ROOM"
         ).localeResponse(object : IResultOb<MutableList<BasketEntity>> {
             override fun onSuccess(t: MutableList<BasketEntity>) {
                 Log.d("BasketRepository", "getAllBasket onSuccess: ")
-                val list = ArrayList<Product>()
                 for (entity in t) {
                     list.add(AppUtil.entityToProduct(entity))
                 }
-                liveData.postValue(list)
+
             }
 
             override fun onError() {
@@ -111,7 +110,7 @@ class BasketRepository(
             }
 
         })
-        return liveData
+        return list
     }
 
 }

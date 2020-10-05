@@ -14,6 +14,7 @@ import com.ilkeruzer.minibakkal.databinding.ProductsFragmentBinding
 import com.ilkeruzer.minibakkal.model.Product
 import com.ilkeruzer.minibakkal.ui.adapter.ProductAdapter
 import com.ilkeruzer.minibakkal.ui.fragment.BaseFragment
+import com.ilkeruzer.minibakkal.util.AppUtil
 import org.koin.android.ext.android.inject
 
 class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListener,
@@ -57,16 +58,15 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListene
 
     private fun observeProduct() {
         showLoading()
+        val localeList = viewModel.getAllProduct()
         viewModel.getProductLiveData().observe(viewLifecycleOwner, {
+            Log.d("localeList", "observeProduct: ${localeList.size}")
             binding.recList.visibility = View.VISIBLE
             stopLoading()
-            productAdapter.notifyReload(it)
+            productAdapter.notifyReload(AppUtil.mergeBasketCount(localeList,it))
 
         })
 
-        viewModel.getAllProduct().observe(viewLifecycleOwner, {
-            Log.d("ProductsFragment", "observeProduct: $it")
-        })
     }
 
     private fun initRecycler() {
@@ -88,8 +88,7 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListene
             if (item.basket == 0) {
                 item.basket += 1
                 saveBasketObserve(item)
-            }
-            else {
+            } else {
                 item.basket += 1
                 updateBasketObserve(item)
             }

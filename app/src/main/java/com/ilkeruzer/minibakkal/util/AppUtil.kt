@@ -27,4 +27,15 @@ object AppUtil {
             entity.basketStock
         )
     }
+
+    fun mergeBasketCount(localeList: ArrayList<Product>, remoteList: ArrayList<Product?>) : ArrayList<Product?> {
+        if (localeList.size > 0) {
+            for (product in remoteList) {
+                for (fProduct in localeList) {
+                    if (fProduct.id == product!!.id) product.basket = fProduct.basket
+                }
+            }
+        }
+        return remoteList
+    }
 }

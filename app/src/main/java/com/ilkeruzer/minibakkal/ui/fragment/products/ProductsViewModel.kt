@@ -35,7 +35,7 @@ class ProductsViewModel(
         return basketRepository.deleteBasketItem(AppUtil.productToEntity(product))
     }
 
-    fun getAllProduct() : LiveData<ArrayList<Product>> {
+    fun getAllProduct() : ArrayList<Product> {
         return basketRepository.getAllBasket()
     }
 }
