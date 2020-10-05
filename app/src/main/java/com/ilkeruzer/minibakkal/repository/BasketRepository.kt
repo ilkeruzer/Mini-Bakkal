@@ -36,7 +36,7 @@ class BasketRepository(
     fun getBasketCount(): LiveData<Int> {
         val liveData = MutableLiveData<Int>()
         DataGateway(
-            basketDao.basketCount(),"ROOM"
+            basketDao.basketCount(), "ROOM"
         ).localeResponse(object : IResultOb<Int> {
             override fun onSuccess(t: Int) {
                 liveData.postValue(t)
@@ -47,6 +47,26 @@ class BasketRepository(
             }
 
         })
+        return liveData
+    }
+
+    fun updateBasket(basketEntity: BasketEntity): LiveData<Boolean> {
+        val liveData = MutableLiveData<Boolean>()
+        DataGateway<Boolean>(
+            basketDao.update(basketEntity)
+        ).localeResponse(object : IResult {
+            override fun onSuccess() {
+                Log.d("BasketRepository", "updateBasket onSuccess: ")
+                liveData.postValue(true)
+            }
+
+            override fun onError() {
+                Log.d("BasketRepository", "updateBasket onError: ")
+                liveData.postValue(false)
+            }
+
+        })
+
         return liveData
     }
 

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.ilkeruzer.minibakkal.IBaseListener.AppBarProductListener
 import com.ilkeruzer.minibakkal.IBaseListener.ProductItemListener
@@ -91,6 +92,10 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListene
 
     private fun updateBasketObserve(item: Product) {
         Log.d("ProductsFragment", "updateBasketObserve: ")
+        viewModel.updateBasketItem(item).observe(viewLifecycleOwner, Observer {
+            if (it) Log.d("ProductsFragment", "updateBasketObserve: ")
+            else Log.e("ProductsFragment", "updateBasketObserve: ")
+        })
     }
 
     private fun saveBasketObserve(item: Product) {
