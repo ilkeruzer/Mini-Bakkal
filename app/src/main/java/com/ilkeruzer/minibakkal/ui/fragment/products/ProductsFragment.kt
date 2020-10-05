@@ -45,8 +45,13 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListene
 
     private fun observeBasketCount() {
         viewModel.getBasketCount().observe(viewLifecycleOwner, {
+            if (it == null || it == 0) {
+                binding.appTabBar.setBadgeCount(0)
+            } else {
+                binding.appTabBar.setBadgeCount(it)
+            }
             Log.d("ProductsFragment", "observeBasket: $it")
-            binding.appTabBar.setBadgeCount(it)
+
         })
     }
 
@@ -108,7 +113,16 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListene
     override fun removeBasket(item: Product, position: Int) {
         Log.d("ProductsFragment", "removeBasket: ")
         item.basket -= 1
+        if (item.basket == 0) deleteBasketObserve(item)
+        else updateBasketObserve(item)
         productAdapter.updateItem(position, item)
+    }
+
+    private fun deleteBasketObserve(item: Product) {
+        viewModel.deleteBasketItem(item).observe(viewLifecycleOwner, Observer {
+            if (it) Log.d("ProductsFragment", "deleteBasketObserve: ")
+            else Log.e("ProductsFragment", "deleteBasketObserve: ")
+        })
     }
 
 

@@ -70,4 +70,24 @@ class BasketRepository(
         return liveData
     }
 
+    fun deleteBasketItem(basketEntity: BasketEntity): LiveData<Boolean> {
+        val liveData = MutableLiveData<Boolean>()
+        DataGateway<Boolean>(
+            basketDao.delete(basketEntity)
+        ).localeResponse(object : IResult {
+            override fun onSuccess() {
+                Log.d("BasketRepository", "deleteBasketItem onSuccess: ")
+                liveData.postValue(true)
+            }
+
+            override fun onError() {
+                Log.d("TAG", "deleteBasketItem onError: ")
+                liveData.postValue(false)
+            }
+
+        })
+
+        return liveData
+    }
+
 }
