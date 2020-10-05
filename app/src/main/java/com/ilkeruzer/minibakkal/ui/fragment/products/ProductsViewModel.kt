@@ -19,4 +19,8 @@ class ProductsViewModel(
     fun saveBasket(product: Product): LiveData<Boolean> {
         return basketRepository.insertBasket(AppUtil.productToEntity(product))
     }
+
+    fun getBasketCount(): LiveData<Int> {
+        return basketRepository.getBasketCount()
+    }
 }

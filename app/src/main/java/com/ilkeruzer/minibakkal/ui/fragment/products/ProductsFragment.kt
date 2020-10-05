@@ -39,6 +39,14 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListene
         binding.appTabBar.setProductListener(this)
         initRecycler()
         observeProduct()
+        observeBasketCount()
+    }
+
+    private fun observeBasketCount() {
+        viewModel.getBasketCount().observe(viewLifecycleOwner, {
+            Log.d("ProductsFragment", "observeBasket: $it")
+            binding.appTabBar.setBadgeCount(it)
+        })
     }
 
     private fun observeProduct() {
@@ -65,13 +73,24 @@ class ProductsFragment : BaseFragment<ProductsViewModel>(), AppBarProductListene
     }
 
     override fun addBasket(item: Product, position: Int) {
-        Log.d("ProductsFragment", "addBasket: ")
+
         if (item.basket != item.stock) {
-            item.basket += 1
+            if (item.basket == 0) {
+                item.basket += 1
+                saveBasketObserve(item)
+            }
+            else {
+                item.basket += 1
+                updateBasketObserve(item)
+            }
+
             productAdapter.updateItem(position, item)
-            saveBasketObserve(item)
         }
 
+    }
+
+    private fun updateBasketObserve(item: Product) {
+        Log.d("ProductsFragment", "updateBasketObserve: ")
     }
 
     private fun saveBasketObserve(item: Product) {

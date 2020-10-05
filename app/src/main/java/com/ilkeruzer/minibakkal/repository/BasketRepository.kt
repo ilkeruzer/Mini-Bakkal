@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ilkeruzer.minibakkal.data.DataGateway
 import com.ilkeruzer.minibakkal.data.local.IResult
+import com.ilkeruzer.minibakkal.data.local.IResultOb
 import com.ilkeruzer.minibakkal.data.local.dao.BasketDao
 import com.ilkeruzer.minibakkal.data.local.entities.BasketEntity
 
@@ -23,7 +24,7 @@ class BasketRepository(
             }
 
             override fun onError() {
-                Log.d("BasketRepository", "onError: ")
+                Log.e("BasketRepository", "onError: ")
                 liveData.postValue(false)
             }
 
@@ -31,4 +32,22 @@ class BasketRepository(
 
         return liveData
     }
+
+    fun getBasketCount(): LiveData<Int> {
+        val liveData = MutableLiveData<Int>()
+        DataGateway(
+            basketDao.basketCount(),"ROOM"
+        ).localeResponse(object : IResultOb<Int> {
+            override fun onSuccess(t: Int) {
+                liveData.postValue(t)
+            }
+
+            override fun onError() {
+                Log.e("BasketRepository", "onError: ")
+            }
+
+        })
+        return liveData
+    }
+
 }
