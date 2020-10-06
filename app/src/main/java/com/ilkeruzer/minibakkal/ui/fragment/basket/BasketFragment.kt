@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.ilkeruzer.minibakkal.IBaseListener
-import com.ilkeruzer.minibakkal.IBaseListener.AppBarBasketListener
+import com.ilkeruzer.minibakkal.IBaseListener.*
 import com.ilkeruzer.minibakkal.R
 import com.ilkeruzer.minibakkal.databinding.BasketFragmentBinding
 import com.ilkeruzer.minibakkal.model.Product
@@ -18,7 +17,7 @@ import com.ilkeruzer.minibakkal.ui.fragment.BaseFragment
 import org.koin.android.ext.android.inject
 
 class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
-    IBaseListener.ProductItemListener<Product> {
+    ProductItemListener<Product> {
 
     private val vM by inject<BasketViewModel>()
     private lateinit var binding: BasketFragmentBinding
@@ -44,7 +43,12 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
     }
 
     private fun basketObserve() {
-        viewModel.getAllBasket().observe(viewLifecycleOwner, Observer {
+        viewModel.getAllBasket().observe(viewLifecycleOwner, {
+            if (it != null && it.size > 0) {
+                binding.basketStatus.visibility = View.VISIBLE
+            } else {
+                binding.basketStatus.visibility = View.GONE
+            }
             basketAdapter.notifyReload(it)
         })
     }
@@ -64,17 +68,13 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
             getString(R.string.drop_basket),
             getString(R.string.yes),
             getString(R.string.no),
-            object : IBaseListener.AlertDialogButtonListener {
+            object : AlertDialogButtonListener {
                 override fun positiveClick() {
                     dropBasketObserve()
                 }
 
-                override fun negativeClick() {
-
-                }
-
+                override fun negativeClick() {}
             })
-
     }
 
     private fun dropBasketObserve() {
