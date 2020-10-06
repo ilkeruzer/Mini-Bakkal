@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.ilkeruzer.minibakkal.IBaseListener
@@ -39,6 +40,13 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
     override fun viewCreated(view: View, savedInstanceState: Bundle?) {
         binding.appTabBar.setBasketListener(this)
         initRecycler()
+        basketObserve()
+    }
+
+    private fun basketObserve() {
+        viewModel.getAllBasket().observe(viewLifecycleOwner, Observer {
+            basketAdapter.notifyReload(it)
+        })
     }
 
     private fun initRecycler() {
@@ -47,10 +55,7 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = basketAdapter
         }
-
         basketAdapter.setProductListener(this)
-
-        basketAdapter.notifyReload(getProductMockList())
     }
 
     override fun deleteClick() {

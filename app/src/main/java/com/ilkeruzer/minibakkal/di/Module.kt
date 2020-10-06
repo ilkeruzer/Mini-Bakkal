@@ -36,5 +36,5 @@ val localeModule = module {
 
 val viewModelModule = module {
     viewModel { ProductsViewModel(get(),get()) }
-    viewModel { BasketViewModel() }
+    viewModel { BasketViewModel(get()) }
 }
