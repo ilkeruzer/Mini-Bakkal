@@ -49,7 +49,7 @@ class BasketAdapter(
             listener: ProductItemListener<Product>
         ) {
             titleText.text = product.name
-            priceText.text = "${product.price} ${product.currency}"
+            priceText.text = "${product.currency}${product.price} "
             ImageLoader.glideImage(imageView, product.imageUrl)
             addBtn.setOnClickListener { listener.addBasket(product, adapterPosition) }
             removeBtn.setOnClickListener { listener.removeBasket(product, adapterPosition) }

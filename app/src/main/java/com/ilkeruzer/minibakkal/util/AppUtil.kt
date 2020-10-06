@@ -23,7 +23,7 @@ object AppUtil {
             entity.id,
             entity.name,
             entity.price,
-            " TL",
+            "₺",
             entity.imageUrl,
             entity.stock,
             entity.basketStock

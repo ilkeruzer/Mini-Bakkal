@@ -50,7 +50,7 @@ class ProductAdapter(
             listener: IBaseListener.ProductItemListener<Product>
         ) {
             ImageLoader.glideImage(imageView, product.imageUrl)
-            priceText.text = "${product.price} ${product.currency}"
+            priceText.text = "${product.currency}${product.price} "
             nameText.text = product.name
             addBtn.setOnClickListener { listener.addBasket(product, adapterPosition) }
             removeBtn.setOnClickListener { listener.removeBasket(product, adapterPosition) }
