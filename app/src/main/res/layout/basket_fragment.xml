@@ -10,7 +10,7 @@
         android:id="@+id/appTabBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:appBarType="basket"
+        app:appBarType="basketNull"
         app:appBar_title="Sepet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

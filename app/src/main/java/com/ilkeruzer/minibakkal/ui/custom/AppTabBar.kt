@@ -67,19 +67,28 @@ class AppTabBar @JvmOverloads constructor(
         when (i) {
             1 -> { productStyle() }
             2 -> { basketStyle() }
+            3 -> { basketNullStyle() }
             else -> {}
         }
     }
 
-    private fun basketStyle() {
+    fun basketNullStyle() {
         binding.shoppingIcon.visibility = GONE
         binding.badgeCard.visibility = GONE
+        binding.deleteBtn.visibility = GONE
+    }
+
+    fun basketStyle() {
+        binding.shoppingIcon.visibility = GONE
+        binding.badgeCard.visibility = GONE
+        binding.deleteBtn.visibility = VISIBLE
     }
 
     private fun productStyle() {
         binding.closeBtn.visibility = GONE
         binding.deleteBtn.visibility = GONE
         binding.shoppingIcon.visibility = VISIBLE
+        binding.deleteBtn.visibility = GONE
     }
 
     private fun setTitle(it: String?) {
@@ -109,4 +118,5 @@ class AppTabBar @JvmOverloads constructor(
             binding.badgeCard.visibility = GONE
         }
     }
+
 }

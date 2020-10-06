@@ -55,13 +55,19 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
 
     private fun basketObserve() {
         viewModel.getAllBasket().observe(viewLifecycleOwner, {
-            if (it != null && it.size > 0) {
-                binding.basketStatus.visibility = View.VISIBLE
-            } else {
-                binding.basketStatus.visibility = View.GONE
-            }
+            setBasketUI(it)
             basketAdapter.notifyReload(it)
         })
+    }
+
+    private fun setBasketUI(arrayList: ArrayList<Product?>) {
+        if (arrayList.size > 0) {
+            binding.basketStatus.visibility = View.VISIBLE
+            binding.appTabBar.basketStyle()
+        } else {
+            binding.basketStatus.visibility = View.GONE
+            binding.appTabBar.basketNullStyle()
+        }
     }
 
     private fun initRecycler() {

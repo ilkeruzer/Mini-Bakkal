@@ -4,6 +4,7 @@
     <attr name="appBarType">
         <enum name="products" value="1" />
         <enum name="basket" value="2" />
+        <enum name="basketNull" value="3" />
     </attr>
 
     <declare-styleable name="AppTabBar">
