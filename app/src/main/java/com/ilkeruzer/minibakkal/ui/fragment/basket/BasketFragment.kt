@@ -67,11 +67,36 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
     }
 
     override fun addBasket(item: Product, position: Int) {
-        Log.d("BasketFragment", "addBasket: ")
+        if (item.basket != item.stock) {
+            if (item.basket == 0) {
+                item.basket += 1
+                saveBasketObserve(item)
+            } else {
+                item.basket += 1
+                updateBasketObserve(item)
+            }
+
+            basketAdapter.updateItem(position, item)
+        }
     }
 
     override fun removeBasket(item: Product, position: Int) {
         Log.d("BasketFragment", "removeBasket: ")
+    }
+
+    private fun updateBasketObserve(item: Product) {
+        Log.d("BasketFragment", "updateBasketObserve: ")
+        viewModel.updateBasketItem(item).observe(viewLifecycleOwner, Observer {
+            if (it) Log.d("BasketFragment", "updateBasketObserve: ")
+            else Log.e("BasketFragment", "updateBasketObserve: ")
+        })
+    }
+
+    private fun saveBasketObserve(item: Product) {
+        viewModel.saveBasket(item).observe(viewLifecycleOwner, {
+            if (it) Log.d("BasketFragment", "saveBasketObserve: ")
+            else Log.e("BasketFragment", "saveBasketObserve: ")
+        })
     }
 
 

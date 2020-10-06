@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.ilkeruzer.minibakkal.model.Product
 import com.ilkeruzer.minibakkal.repository.BasketRepository
 import com.ilkeruzer.minibakkal.ui.BaseViewModel
+import com.ilkeruzer.minibakkal.util.AppUtil
 
 class BasketViewModel(
     private val basketRepository: BasketRepository
@@ -11,5 +12,13 @@ class BasketViewModel(
 
     fun getAllBasket(): LiveData<ArrayList<Product?>> {
         return basketRepository.getAllBasketLiveData()
+    }
+
+    fun saveBasket(product: Product): LiveData<Boolean> {
+        return basketRepository.insertBasket(AppUtil.productToEntity(product))
+    }
+
+    fun updateBasketItem(product: Product): LiveData<Boolean> {
+        return basketRepository.updateBasket(AppUtil.productToEntity(product))
     }
 }
