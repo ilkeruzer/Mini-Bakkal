@@ -14,6 +14,7 @@ import com.ilkeruzer.minibakkal.util.AppUtil
 class BasketRepository(
     private val basketDao: BasketDao
 ) {
+    private val TAG = "BasketRepository"
 
     fun insertBasket(basketEntity: BasketEntity): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
@@ -92,10 +93,10 @@ class BasketRepository(
         return liveData
     }
 
-    fun getAllBasket() : ArrayList<Product> {
+    fun getAllBasket(): ArrayList<Product> {
         val list = ArrayList<Product>()
         DataGateway(
-            basketDao.getAllBasket(),"ROOM"
+            basketDao.getAllBasket(), "ROOM"
         ).localeResponse(object : IResultOb<MutableList<BasketEntity>> {
             override fun onSuccess(t: MutableList<BasketEntity>) {
                 Log.d("BasketRepository", "getAllBasket onSuccess: ")
@@ -113,10 +114,10 @@ class BasketRepository(
         return list
     }
 
-    fun getAllBasketLiveData() : LiveData<ArrayList<Product?>> {
+    fun getAllBasketLiveData(): LiveData<ArrayList<Product?>> {
         val liveData = MutableLiveData<ArrayList<Product?>>()
         DataGateway(
-            basketDao.getAllBasket(),"ROOM"
+            basketDao.getAllBasket(), "ROOM"
         ).localeResponse(object : IResultOb<MutableList<BasketEntity>> {
             override fun onSuccess(t: MutableList<BasketEntity>) {
                 Log.d("BasketRepository", "getAllBasket onSuccess: ")
@@ -129,6 +130,25 @@ class BasketRepository(
 
             override fun onError() {
                 Log.d("BasketRepository", "getAllBasket onError: ")
+            }
+
+        })
+        return liveData
+    }
+
+    fun dropBasket(): LiveData<Boolean> {
+        val liveData = MutableLiveData<Boolean>()
+        DataGateway<Boolean>(
+            basketDao.dropTable()
+        ).localeResponse(object : IResult {
+            override fun onSuccess() {
+                Log.d(TAG, "dropBasket onSuccess: ")
+                liveData.postValue(true)
+            }
+
+            override fun onError() {
+                Log.e(TAG, "dropBasket onError: ")
+                liveData.postValue(false)
             }
 
         })

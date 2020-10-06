@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.ilkeruzer.minibakkal.IBaseListener
 import com.ilkeruzer.minibakkal.IBaseListener.AppBarBasketListener
-import com.ilkeruzer.minibakkal.data.getProductMockList
+import com.ilkeruzer.minibakkal.R
 import com.ilkeruzer.minibakkal.databinding.BasketFragmentBinding
 import com.ilkeruzer.minibakkal.model.Product
 import com.ilkeruzer.minibakkal.ui.adapter.BasketAdapter
@@ -60,6 +60,28 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
 
     override fun deleteClick() {
         Log.d("BasketFragment", "deleteClick: ")
+        showAlertDialog(getString(R.string.Warning),
+            getString(R.string.drop_basket),
+            getString(R.string.yes),
+            getString(R.string.no),
+            object : IBaseListener.AlertDialogButtonListener {
+                override fun positiveClick() {
+                    dropBasketObserve()
+                }
+
+                override fun negativeClick() {
+
+                }
+
+            })
+
+    }
+
+    private fun dropBasketObserve() {
+        viewModel.dropTable().observe(viewLifecycleOwner, Observer {
+            if (it)
+                findNavController().popBackStack()
+        })
     }
 
     override fun closeClick() {

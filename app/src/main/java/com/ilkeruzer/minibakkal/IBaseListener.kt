@@ -26,4 +26,9 @@ interface IBaseListener {
         fun confirmClick()
     }
 
+    interface AlertDialogButtonListener {
+        fun positiveClick()
+        fun negativeClick()
+    }
+
 }

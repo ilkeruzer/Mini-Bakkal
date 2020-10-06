@@ -1,11 +1,14 @@
 package com.ilkeruzer.minibakkal.ui.fragment
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.ilkeruzer.minibakkal.IBaseListener.AlertDialogButtonListener
 import com.ilkeruzer.minibakkal.ui.BaseViewModel
 import com.ilkeruzer.minibakkal.util.ProgressDialog
 import java.util.concurrent.Executors
@@ -96,6 +99,23 @@ abstract class BaseFragment<VM : BaseViewModel>() : Fragment() {
             }
         } catch (e: Throwable) {
             Log.e(TAG, e.message, e)
+        }
+    }
+
+    fun showAlertDialog(title: String, message: String,
+                        positiveText: String, negativeText: String,
+                        listener: AlertDialogButtonListener) {
+        AlertDialog.Builder(context).apply {
+            setTitle(title)
+            setMessage(message)
+            setCancelable(false)
+            setPositiveButton(positiveText){ _: DialogInterface, _: Int ->
+                listener.positiveClick()
+            }
+            setNegativeButton(negativeText) { _: DialogInterface, _: Int ->
+                listener.negativeClick()
+            }
+            show()
         }
     }
 

@@ -25,4 +25,8 @@ class BasketViewModel(
     fun deleteBasketItem(product: Product): LiveData<Boolean> {
         return basketRepository.deleteBasketItem(AppUtil.productToEntity(product))
     }
+
+    fun dropTable() : LiveData<Boolean> {
+        return basketRepository.dropBasket()
+    }
 }
