@@ -29,4 +29,8 @@ class BasketViewModel(
     fun dropTable() : LiveData<Boolean> {
         return basketRepository.dropBasket()
     }
+
+    fun getBasketSumPriceLiveData(): LiveData<Double> {
+        return basketRepository.getBasketSumPrice()
+    }
 }

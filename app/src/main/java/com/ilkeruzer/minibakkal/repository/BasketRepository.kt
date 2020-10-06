@@ -155,4 +155,21 @@ class BasketRepository(
         return liveData
     }
 
+    fun getBasketSumPrice(): LiveData<Double> {
+        val liveData = MutableLiveData<Double>()
+        DataGateway(
+            basketDao.basketSumPrice(), "ROOM"
+        ).localeResponse(object : IResultOb<Double> {
+            override fun onSuccess(t: Double) {
+                liveData.postValue(t)
+            }
+
+            override fun onError() {
+                Log.e("BasketRepository", "getBasketSumPrice onError: ")
+            }
+
+        })
+        return liveData
+    }
+
 }

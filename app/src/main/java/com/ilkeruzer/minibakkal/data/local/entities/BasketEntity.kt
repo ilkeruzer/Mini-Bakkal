@@ -11,5 +11,6 @@ data class BasketEntity(
     @ColumnInfo(name = "price") var price : Double,
     @ColumnInfo(name = "imageUrl") var imageUrl: String,
     @ColumnInfo(name = "stock") var stock: Int,
-    @ColumnInfo(name = "basketStock") var basketStock: Int
+    @ColumnInfo(name = "basketStock") var basketStock: Int,
+    @ColumnInfo(name = "sumPrice") val sumPrice: Double = price * basketStock
 )

@@ -44,7 +44,7 @@ class BasketStatus @JvmOverloads constructor(
         }
     }
 
-    private fun setSumText(sum: String?) {
+     fun setSumText(sum: String?) {
         sum.let { binding.sumText.text = it }
     }
 

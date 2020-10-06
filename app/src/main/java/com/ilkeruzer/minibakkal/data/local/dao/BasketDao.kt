@@ -26,4 +26,7 @@ interface BasketDao {
     @Query("DELETE FROM basket_table")
     fun dropTable(): Completable
 
+    @Query("SELECT SUM(sumPrice) FROM basket_table")
+    fun basketSumPrice() : Observable<Double>
+
 }

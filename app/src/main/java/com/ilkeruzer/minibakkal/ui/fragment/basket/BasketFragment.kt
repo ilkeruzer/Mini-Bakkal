@@ -14,6 +14,7 @@ import com.ilkeruzer.minibakkal.databinding.BasketFragmentBinding
 import com.ilkeruzer.minibakkal.model.Product
 import com.ilkeruzer.minibakkal.ui.adapter.BasketAdapter
 import com.ilkeruzer.minibakkal.ui.fragment.BaseFragment
+import com.ilkeruzer.minibakkal.util.AppUtil
 import org.koin.android.ext.android.inject
 
 class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
@@ -40,6 +41,16 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
         binding.appTabBar.setBasketListener(this)
         initRecycler()
         basketObserve()
+        basketSumPriceObserve()
+    }
+
+    private fun basketSumPriceObserve() {
+        viewModel.getBasketSumPriceLiveData().observe(viewLifecycleOwner, {
+            binding.basketStatus.setSumText(
+                getString(R.string.tl) +
+                AppUtil.doubleToDecimal(it).toString()
+            )
+        })
     }
 
     private fun basketObserve() {

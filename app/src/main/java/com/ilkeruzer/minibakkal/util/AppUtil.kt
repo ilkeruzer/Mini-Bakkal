@@ -2,6 +2,8 @@ package com.ilkeruzer.minibakkal.util
 
 import com.ilkeruzer.minibakkal.data.local.entities.BasketEntity
 import com.ilkeruzer.minibakkal.model.Product
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 object AppUtil {
 
@@ -37,5 +39,9 @@ object AppUtil {
             }
         }
         return remoteList
+    }
+
+    fun doubleToDecimal(value: Double): BigDecimal? {
+        return BigDecimal(value).setScale(2, RoundingMode.HALF_EVEN)
     }
 }
