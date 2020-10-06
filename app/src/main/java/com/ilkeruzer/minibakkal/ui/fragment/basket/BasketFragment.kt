@@ -82,6 +82,10 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
 
     override fun removeBasket(item: Product, position: Int) {
         Log.d("BasketFragment", "removeBasket: ")
+        item.basket -= 1
+        if (item.basket == 0) deleteBasketObserve(item)
+        else updateBasketObserve(item)
+        basketAdapter.updateItem(position, item)
     }
 
     private fun updateBasketObserve(item: Product) {
@@ -99,5 +103,10 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
         })
     }
 
+    private fun deleteBasketObserve(item: Product) {
+        viewModel.deleteBasketItem(item).observe(viewLifecycleOwner, Observer {
+
+        })
+    }
 
 }

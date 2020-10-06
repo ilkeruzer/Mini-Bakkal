@@ -21,4 +21,8 @@ class BasketViewModel(
     fun updateBasketItem(product: Product): LiveData<Boolean> {
         return basketRepository.updateBasket(AppUtil.productToEntity(product))
     }
+
+    fun deleteBasketItem(product: Product): LiveData<Boolean> {
+        return basketRepository.deleteBasketItem(AppUtil.productToEntity(product))
+    }
 }
