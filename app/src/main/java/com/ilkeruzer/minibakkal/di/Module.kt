@@ -19,7 +19,7 @@ val appModule = module {
     single { BasketAdapter(ArrayList(), false) }
 
     single { ProductRepository(get()) }
-    single { BasketRepository(get()) }
+    single { BasketRepository(get(),get()) }
 }
 
 val networkModule = module {

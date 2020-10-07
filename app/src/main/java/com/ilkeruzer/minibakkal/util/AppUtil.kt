@@ -1,6 +1,8 @@
 package com.ilkeruzer.minibakkal.util
 
 import com.ilkeruzer.minibakkal.data.local.entities.BasketEntity
+import com.ilkeruzer.minibakkal.data.model.BasketPost
+import com.ilkeruzer.minibakkal.data.model.ProductPost
 import com.ilkeruzer.minibakkal.model.Product
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -43,5 +45,17 @@ object AppUtil {
 
     fun doubleToDecimal(value: Double): BigDecimal? {
         return BigDecimal(value).setScale(2, RoundingMode.HALF_EVEN)
+    }
+
+    fun productToBasketPost(it: ArrayList<Product?>?): BasketPost? {
+        val list = ArrayList<ProductPost?>()
+            for (product in it!!) {
+                list.add(productToProductPost(product!!))
+            }
+        return BasketPost(list)
+    }
+
+    private fun productToProductPost(product: Product) : ProductPost {
+        return ProductPost(product.id,product.basket)
     }
 }

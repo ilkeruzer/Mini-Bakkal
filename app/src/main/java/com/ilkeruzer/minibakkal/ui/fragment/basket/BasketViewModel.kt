@@ -1,6 +1,8 @@
 package com.ilkeruzer.minibakkal.ui.fragment.basket
 
 import androidx.lifecycle.LiveData
+import com.ilkeruzer.minibakkal.data.model.BasketPost
+import com.ilkeruzer.minibakkal.data.model.BasketResponse
 import com.ilkeruzer.minibakkal.model.Product
 import com.ilkeruzer.minibakkal.repository.BasketRepository
 import com.ilkeruzer.minibakkal.ui.BaseViewModel
@@ -32,5 +34,9 @@ class BasketViewModel(
 
     fun getBasketSumPriceLiveData(): LiveData<Double> {
         return basketRepository.getBasketSumPrice()
+    }
+
+    fun postBasket(basketPost: BasketPost): LiveData<BasketResponse> {
+        return basketRepository.postBasket(basketPost)
     }
 }

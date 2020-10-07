@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.ilkeruzer.minibakkal.IBaseListener.*
 import com.ilkeruzer.minibakkal.R
+import com.ilkeruzer.minibakkal.data.model.BasketPost
 import com.ilkeruzer.minibakkal.databinding.BasketFragmentBinding
 import com.ilkeruzer.minibakkal.model.Product
 import com.ilkeruzer.minibakkal.ui.adapter.BasketAdapter
@@ -18,11 +19,12 @@ import com.ilkeruzer.minibakkal.util.AppUtil
 import org.koin.android.ext.android.inject
 
 class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
-    ProductItemListener<Product> {
+    ProductItemListener<Product>, BasketStatusListener {
 
     private val vM by inject<BasketViewModel>()
     private lateinit var binding: BasketFragmentBinding
     private val basketAdapter by inject<BasketAdapter>()
+    private lateinit var basketPost: BasketPost
 
     override fun equalsViewModel(savedInstanceState: Bundle?) {
         viewModel = vM
@@ -39,6 +41,7 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
 
     override fun viewCreated(view: View, savedInstanceState: Bundle?) {
         binding.appTabBar.setBasketListener(this)
+        binding.basketStatus.setListener(this)
         initRecycler()
         basketObserve()
         basketSumPriceObserve()
@@ -56,6 +59,7 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
     private fun basketObserve() {
         viewModel.getAllBasket().observe(viewLifecycleOwner, {
             setBasketUI(it)
+            basketPost = AppUtil.productToBasketPost(it)!!
             basketAdapter.notifyReload(it)
         })
     }
@@ -146,6 +150,29 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
         viewModel.deleteBasketItem(item).observe(viewLifecycleOwner, Observer {
 
         })
+    }
+
+    override fun confirmClick() {
+        Log.d("BasketFragment", "basketPost: ${basketPost} ")
+        showLoading()
+        viewModel.postBasket(basketPost).observe(viewLifecycleOwner, {
+            Log.d("BasketFragment", "confirmClick: ${it.message}")
+            stopLoading()
+            successAlertDialog(it.message)
+
+        })
+    }
+
+    private fun successAlertDialog(message: String) {
+        showAlertDialog(getString(R.string.success), message, getString(R.string.ok), "",
+            object : AlertDialogButtonListener {
+                override fun positiveClick() {
+                    dropBasketObserve()
+                }
+
+                override fun negativeClick() {}
+
+            })
     }
 
 }

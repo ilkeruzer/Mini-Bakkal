@@ -16,4 +16,6 @@
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
     <string name="tl">₺</string>
+    <string name="success">İşlem Başarılı</string>
+    <string name="ok">Tamam</string>
 </resources>

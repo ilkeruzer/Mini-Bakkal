@@ -8,11 +8,16 @@ import com.ilkeruzer.minibakkal.data.local.IResult
 import com.ilkeruzer.minibakkal.data.local.IResultOb
 import com.ilkeruzer.minibakkal.data.local.dao.BasketDao
 import com.ilkeruzer.minibakkal.data.local.entities.BasketEntity
+import com.ilkeruzer.minibakkal.data.model.BasketPost
+import com.ilkeruzer.minibakkal.data.model.BasketResponse
+import com.ilkeruzer.minibakkal.data.service.ApiService
+import com.ilkeruzer.minibakkal.data.service.IResource
 import com.ilkeruzer.minibakkal.model.Product
 import com.ilkeruzer.minibakkal.util.AppUtil
 
 class BasketRepository(
-    private val basketDao: BasketDao
+    private val basketDao: BasketDao,
+    private val service: ApiService
 ) {
     private val TAG = "BasketRepository"
 
@@ -169,6 +174,22 @@ class BasketRepository(
             }
 
         })
+        return liveData
+    }
+
+    fun postBasket(basketPost: BasketPost): LiveData<BasketResponse> {
+        val liveData = MutableLiveData<BasketResponse>()
+        service.postBasket(basketPost)
+            .apiResponse(object : IResource<BasketResponse> {
+                override fun onSuccess(t: BasketResponse) {
+                    liveData.postValue(t)
+                }
+
+                override fun onFailed() {
+                    Log.e(TAG, "onFailed: ")
+                }
+
+            })
         return liveData
     }
 
