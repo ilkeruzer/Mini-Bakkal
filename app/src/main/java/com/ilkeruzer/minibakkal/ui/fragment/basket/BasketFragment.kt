@@ -57,6 +57,7 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
     }
 
     private fun basketObserve() {
+        binding.recList.visibility = View.GONE
         viewModel.getAllBasket().observe(viewLifecycleOwner, {
             setBasketUI(it)
             basketPost = AppUtil.productToBasketPost(it)!!
@@ -65,6 +66,7 @@ class BasketFragment : BaseFragment<BasketViewModel>(), AppBarBasketListener,
     }
 
     private fun setBasketUI(arrayList: ArrayList<Product?>) {
+        binding.recList.visibility = View.VISIBLE
         if (arrayList.size > 0) {
             binding.basketStatus.visibility = View.VISIBLE
             binding.appTabBar.basketStyle()
